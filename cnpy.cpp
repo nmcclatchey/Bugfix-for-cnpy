@@ -69,7 +69,7 @@ void cnpy::parse_npy_header(unsigned char* buffer,size_t& word_size, std::vector
       header_len = *reinterpret_cast<uint32_t*>(buffer+8);
     else
       header_len = *reinterpret_cast<uint16_t*>(buffer+8);
-    std::string header(reinterpret_cast<char*>(buffer+(extended_header ? 11 : 9)),header_len);
+    std::string header(reinterpret_cast<char*>(buffer+(extended_header ? 12 : 10)),header_len);
 
     size_t loc1, loc2;
 
