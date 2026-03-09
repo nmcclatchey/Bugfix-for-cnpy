@@ -280,12 +280,13 @@ cnpy::NpyArray cnpy::npz_load(std::string fname, std::string varname) {
     struct AutoCloser
     {
         FILE * fp;
+        AutoCloser (FILE * ptr) : fp(ptr) {}
         ~AutoCloser (void)
         {
-            fclose(fp);
+            if (fp != nullptr)
+                fclose(fp);
         }
-    } closer;
-    closer.fp = fopen(fname.c_str(), "rb");
+    } closer(fopen(fname.c_str(), "rb"));
 
     if(!closer.fp) throw std::runtime_error("npz_load: Unable to open file "+fname);
 
@@ -334,12 +335,13 @@ cnpy::NpyArray cnpy::npy_load(std::string fname) {
     struct AutoCloser
     {
         FILE * fp;
+        AutoCloser (FILE * ptr) : fp(ptr) {}
         ~AutoCloser (void)
         {
-            fclose(fp);
+            if (fp != nullptr)
+                fclose(fp);
         }
-    } closer;
-    closer.fp = fopen(fname.c_str(), "rb");
+    } closer(fopen(fname.c_str(), "rb"));
 
     if(!closer.fp) throw std::runtime_error("npy_load: Unable to open file "+fname);
 
